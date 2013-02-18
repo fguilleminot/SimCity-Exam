@@ -1,0 +1,17 @@
+simcity en réseau:
+
+pitch :
+
+- 2 joueurs sur la même map
+- chacun construit pour la même ville
+- 3 contructions:
+	- habitations
+	- commerces
+	- industries
+- 2 services publics:
+	- police
+	- pompier
+- service urbain:
+	- route
+	- niveler le terrain (shader?)
+- génération aléatoire du terrain (algo de perlin)

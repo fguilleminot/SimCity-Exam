@@ -1,9 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\MapGenerator.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\Users\Florian\Documents\tmp\Assets\Sources\FractalTexture.js">
     <Files>
-      <File FileName="Assets\MapGenerator.shader" Line="21" Column="18" />
-      <File FileName="Assets\MapGenerator.cs" Line="1" Column="1" />
+      <File FileName="..\..\Users\Florian\Documents\tmp\Assets\Sources\FractalTexture.js" Line="58" Column="2" />
+      <File FileName="..\..\Users\Florian\Documents\tmp\Assets\Plugins\Perlin.cs" Line="18" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

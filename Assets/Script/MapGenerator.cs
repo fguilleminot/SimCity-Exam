@@ -9,9 +9,12 @@ public class MapGenerator : MonoBehaviour
 	public Texture2D MapTexture;
 	public Material material;
 	public Vector3 size = new Vector3(200, 30, 200);
+	public float TolerableLowHeightPercent = 0.9f;
 
 	private int width;
 	private int height;
+	private int surface;
+	private float lowHeight = 0f;
 
 	private Vector3[] vertices;
 	private Vector2[] uv;
@@ -26,17 +29,19 @@ public class MapGenerator : MonoBehaviour
 			tmp.Calculate();
 			MapTexture = tmp.texture;
 		}
-
+		
 		Generate();
 	}
 
 	// Build vertices and UVs
 	void GenerateGraphicsParameters()
 	{
-
+		surface = width * height;
 		vertices = new Vector3[height * width];
 		uv = new Vector2[height * width];
 		tangents = new Vector4[height * width];
+		float randomHeight;
+		float seuil = TolerableLowHeightPercent * surface;
 
 		Vector2 uvScale = new Vector2(1.0f / (width - 1), 1.0f / (height - 1));
 		Vector3 sizeScale = new Vector3(size.x / (width - 1), size.y, size.z / (height - 1));
@@ -45,7 +50,17 @@ public class MapGenerator : MonoBehaviour
 		{
 			for (int xIndex = 0; xIndex < width; xIndex++)
 			{
-				float pixelHeight = MapTexture.GetPixel(xIndex, yIndex).grayscale;
+				if (lowHeight < seuil)
+				{
+					randomHeight = Random.Range(0f, 0.5f);
+					lowHeight++;
+				}
+				else
+				{
+					randomHeight = Random.Range(0f, size.y);
+				}
+				
+				float pixelHeight = MapTexture.GetPixel(xIndex, yIndex).grayscale * randomHeight;
 				Vector3 vertex = new Vector3(xIndex, pixelHeight, yIndex);
 				vertices[yIndex * width + xIndex] = Vector3.Scale(sizeScale, vertex);
 				uv[yIndex * width + xIndex] = Vector2.Scale(new Vector2(xIndex, yIndex), uvScale);
@@ -57,6 +72,7 @@ public class MapGenerator : MonoBehaviour
 				Vector3 vertexR = new Vector3(xIndex + 1, MapTexture.GetPixel(xIndex + 1, yIndex).grayscale, yIndex);
 				Vector3 tan = Vector3.Scale(sizeScale, vertexR - vertexL).normalized;
 				tangents[yIndex * width + xIndex] = new Vector4(tan.x, tan.y, tan.z, -1.0f);
+				
 			}
 		}
 	}

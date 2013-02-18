@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class FractalTexture// : MonoBehaviour
+public class FractalTexture
 {
 
 	bool gray;
@@ -20,8 +20,8 @@ public class FractalTexture// : MonoBehaviour
 	private Perlin perlin;
 	private FractalNoise fractal;
 
-	public FractalTexture(bool gray = true, int width = 128, int height = 128, float lacunarity = 6.18f, float h = 0.69f,
-						  float octaves = 8.379f, float offset = 0.75f, float scale = 0.09f, float offsetPos = 0.0f)
+	public FractalTexture(bool gray = true, int width = 128, int height = 128, float lacunarity = 6.18f, float h = 0.99f,
+						  float octaves = 4f, float offset = 0.75f, float scale = 0.09f, float offsetPos = 0.0f)
 	{
 		this.gray = gray;
 		this.width = width;
@@ -38,9 +38,10 @@ public class FractalTexture// : MonoBehaviour
 
 	public void Calculate()
 	{
-
+		
 		if (perlin == null)
 			perlin = new Perlin();
+		
 		fractal = new FractalNoise(h, lacunarity, octaves, perlin);
 
 		for (var y = 0; y < height; y++)

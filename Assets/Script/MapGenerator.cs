@@ -25,8 +25,6 @@ public class MapGenerator : MonoBehaviour
 			FractalTexture tmp = new FractalTexture();
 			tmp.Calculate();
 			MapTexture = tmp.texture;
-			//MapTexture.width = tmp.texture.width;
-			//MapTexture.height = tmp.texture.height;
 		}
 
 		Generate();

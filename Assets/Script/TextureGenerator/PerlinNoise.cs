@@ -187,7 +187,6 @@ public class Perlin
 			for (j = 0; j < 3; j++)
 				g3[i, j] = (float)(rnd.Next(B + B) - B) / B;
 
-
 			normalize3(ref g3[i, 0], ref g3[i, 1], ref g3[i, 2]);
 		}
 

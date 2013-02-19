@@ -109,12 +109,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1340956710}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78076ea8ab8a8fd47bd3c7422e8fdd6a, type: 3}
+  m_Script: {fileID: 11500000, guid: d6ee2b8ada39e1840a24e921b25af021, type: 3}
   m_Name: 
   MapTexture: {fileID: 0}
-  material: {fileID: 2100000, guid: efa98d27390e79d4db284aeb5e60d4b9, type: 2}
+  material: {fileID: 0}
   size: {x: 200, y: 10, z: 200}
-  TolerableLowHeightPercent: .899999976
+  BaseColor: {r: .0156862754, g: .388235301, b: .184313729, a: 1}
+  HeightColor: {r: .274509817, g: .156862751, b: .0588235296, a: 1}
+  MapColoration: {fileID: 4800000, guid: 46595a13fa8cab54597196212aceeec7, type: 3}
 --- !u!1 &1749079004
 GameObject:
   m_ObjectHideFlags: 0

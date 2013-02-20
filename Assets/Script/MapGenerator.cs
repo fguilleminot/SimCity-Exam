@@ -12,6 +12,8 @@ public class MapGenerator : MonoBehaviour
 	public Color BaseColor = new Color(4,99,47,255);
 	public Color HeightColor = new Color(70,40,15,255);
 	public Shader MapColoration;
+	
+	private float seuil;
 
 	private int width;
 	private int height;
@@ -24,9 +26,11 @@ public class MapGenerator : MonoBehaviour
 
 	void Start()
 	{
+		seuil = Random.Range(0.95f, 1f);
+		
 		if (MapTexture == null)
 		{
-			FractalTexture tmp = new FractalTexture();
+			FractalTexture tmp = new FractalTexture(true, Mathf.RoundToInt(size.x), Mathf.RoundToInt(size.z));
 			tmp.Calculate();
 			MapTexture = tmp.texture;
 		}
@@ -46,6 +50,9 @@ public class MapGenerator : MonoBehaviour
 	// Build vertices and UVs
 	void GenerateGraphicsParameters()
 	{
+		float randomPixelHeight;
+		float pixelHeight;
+		
 		surface = width * height;
 		vertices = new Vector3[height * width];
 		uv = new Vector2[height * width];
@@ -58,8 +65,12 @@ public class MapGenerator : MonoBehaviour
 		{
 			for (int xIndex = 0; xIndex < width; xIndex++)
 			{
-
-				float pixelHeight = MapTexture.GetPixel(xIndex, yIndex).grayscale;
+				// Correction of the heightMap to obtain a limit of plane pixel
+				randomPixelHeight = Random.Range(0f, 1f);
+				if (randomPixelHeight < seuil)
+					pixelHeight = 0f;
+				else
+					pixelHeight = MapTexture.GetPixel(xIndex, yIndex).grayscale;
 				Vector3 vertex = new Vector3(xIndex, pixelHeight, yIndex);
 				vertices[yIndex * width + xIndex] = Vector3.Scale(sizeScale, vertex);
 				uv[yIndex * width + xIndex] = Vector2.Scale(new Vector2(xIndex, yIndex), uvScale);

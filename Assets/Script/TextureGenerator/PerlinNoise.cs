@@ -211,10 +211,15 @@ public class Perlin
 
 public class FractalNoise
 {
+	private Perlin m_Noise;
+	private float[] m_Exponent;
+	private int m_IntOctaves;
+	private float m_Octaves;
+	private float m_Lacunarity;
+	
 	public FractalNoise(float inH, float inLacunarity, float inOctaves)
 		: this(inH, inLacunarity, inOctaves, null)
 	{
-
 	}
 
 	public FractalNoise(float inH, float inLacunarity, float inOctaves, Perlin noise)
@@ -307,11 +312,5 @@ public class FractalNoise
 
 		return value;
 	}
-
-
-	private Perlin m_Noise;
-	private float[] m_Exponent;
-	private int m_IntOctaves;
-	private float m_Octaves;
-	private float m_Lacunarity;
+	
 }

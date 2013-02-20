@@ -5,7 +5,6 @@ Shader "Custom/MapColoration" {
 		_HeightColor ("Color Haute Altitude", Color) = (0,0,0,0)
 		_MaxAltitude ("Altitude Max", Float) = 10
 		_Proportion ("Proportion", Float) = 5
-		//_MaxHeightMap ("Altitude Max de la Map", Float) = 0
 	}
 	SubShader {
 
@@ -30,14 +29,9 @@ Shader "Custom/MapColoration" {
 			IN.weight = saturate((v.vertex.y - _MaxAltitude) / _Proportion);
 			
 		}
-
-		//void myColoration (Input IN, SurfaceOutput o, inout fixed4 color)
-		//{
-		//	color = lerp(_BaseColor, _HeightColor, IN.weight);
-		//}
 		
 		void surf (Input IN, inout SurfaceOutput o) {
-			o.Albedo = lerp(_BaseColor, _HeightColor, IN.weight); //tex2D (_MainTex, IN.uv_MainTex).rgb;
+			o.Albedo = lerp(_BaseColor, _HeightColor, IN.weight);
 		}
 		ENDCG
 	} 

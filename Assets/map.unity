@@ -83,9 +83,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 1340956711}
   - 114: {fileID: 1340956712}
+  - 65: {fileID: 1340956713}
   m_Layer: 0
   m_Name: Map
-  m_TagString: Untagged
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -113,10 +114,22 @@ MonoBehaviour:
   m_Name: 
   MapTexture: {fileID: 0}
   material: {fileID: 0}
-  size: {x: 200, y: 10, z: 200}
+  size: {x: 50, y: 0, z: 50}
   BaseColor: {r: .0336934701, g: .410447776, b: .204224333, a: 1}
   HeightColor: {r: .335820913, g: .170416579, b: .0325796343, a: 1}
   MapColoration: {fileID: 4800000, guid: 5f6d4286e3221244191c886c68a025de, type: 3}
+--- !u!65 &1340956713
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1340956710}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 50, y: 0, z: 50}
+  m_Center: {x: 25, y: 0, z: 25}
 --- !u!1 &1749079004
 GameObject:
   m_ObjectHideFlags: 0
@@ -191,6 +204,7 @@ GameObject:
   - 92: {fileID: 1823430115}
   - 124: {fileID: 1823430114}
   - 81: {fileID: 1823430113}
+  - 114: {fileID: 1823430118}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -254,7 +268,27 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1823430112}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
-  m_LocalPosition: {x: 100, y: 50, z: 100}
+  m_LocalPosition: {x: 10, y: 10, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &1823430118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1823430112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c55dd93d710eb204382f699e3a3967b4, type: 3}
+  m_Name: 
+  tmp:
+  - {fileID: 100000, guid: bb773124884f20944ae9a15c880a3fcc, type: 2}
+  - {fileID: 100000, guid: 517502b095bfeef49b8206cda3ae36b9, type: 2}
+  - {fileID: 100000, guid: 8560bfd876e2ac24c85b1a55a8cb5a98, type: 2}
+  - {fileID: 100000, guid: e710eb1cfcebc164ca798f4044d63fd3, type: 2}
+  - {fileID: 100000, guid: a100c10f3e9c5ac409c0a39446eb4fff, type: 2}
+  prefabToBuild: {fileID: 0}
+  SonOf: {fileID: 1340956710}
+  ObjectCreated: []
+  TagMap: Map

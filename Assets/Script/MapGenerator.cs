@@ -26,7 +26,7 @@ public class MapGenerator : MonoBehaviour
 
 	void Start()
 	{
-		seuil = Random.Range(0.95f, 1f);
+		seuil = Random.Range(0.99f, 1f);
 		
 		if (MapTexture == null)
 		{
@@ -144,7 +144,5 @@ public class MapGenerator : MonoBehaviour
 		// Assign tangents after recalculating normals
 		mesh.tangents = tangents;
 	}
-
-
 
 }

@@ -205,6 +205,7 @@ GameObject:
   - 124: {fileID: 1823430114}
   - 81: {fileID: 1823430113}
   - 114: {fileID: 1823430118}
+  - 114: {fileID: 1823430119}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -292,3 +293,20 @@ MonoBehaviour:
   SonOf: {fileID: 1340956710}
   ObjectCreated: []
   TagMap: Map
+--- !u!114 &1823430119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1823430112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ede0ad935eb7b9469f637ccbe067535, type: 3}
+  m_Name: 
+  Border: .00999999978
+  Speed: 100
+  AngularSpeed: 1
+  Forward: 273
+  Backward: 274
+  Left: 276
+  Right: 275

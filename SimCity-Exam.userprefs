@@ -1,13 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\GameManager.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\TextureGenerator\PerlinNoise.cs">
     <Files>
       <File FileName="Assets\Script\Construction\QuadGenerator.cs" Line="1" Column="1" />
-      <File FileName="Assets\Script\Construction\ObjectPlacer.cs" Line="189" Column="69" />
-      <File FileName="Assets\Script\TimeManager.cs" Line="13" Column="25" />
+      <File FileName="Assets\Script\Construction\ObjectPlacer.cs" Line="1" Column="1" />
       <File FileName="Assets\Assets\Shaders\MapColoration.shader" Line="1" Column="1" />
-      <File FileName="Assets\Script\PopulationManager.cs" Line="25" Column="1" />
-      <File FileName="Assets\Script\GameManager.cs" Line="123" Column="7" />
+      <File FileName="Assets\Script\MapGenerator.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\TextureGenerator\FractalTexture.cs" Line="43" Column="23" />
+      <File FileName="Assets\Script\IA Manager\GameManager.cs" Line="129" Column="29" />
+      <File FileName="Assets\Script\CameraMover.cs" Line="25" Column="4" />
+      <File FileName="Assets\Script\TextureGenerator\PerlinNoise.cs" Line="31" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

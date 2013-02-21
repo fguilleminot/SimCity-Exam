@@ -21,33 +21,8 @@ public class CameraMover : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Vector3 mousePos = Camera.main.ScreenToViewportPoint(Input.mousePosition);
-		if (mousePos.x >0 && mousePos.y >0 && mousePos.x <1 && mousePos.y <1)
+		if (this.transform.position.x >= 6 && this.transform.position.x <= 94)
 		{
-			if (mousePos.y > 1-Border)
-			{
-				if (this.transform.up.y > 0)
-					moveCamera(this.transform.forward, Speed * Time.deltaTime);
-				else
-					moveCamera(this.transform.forward, -Speed * Time.deltaTime);
-			}
-			else if (mousePos.y < Border)
-			{
-				if (this.transform.up.y > 0)
-					moveCamera(this.transform.forward, -Speed * Time.deltaTime);
-				else
-					moveCamera(this.transform.forward, Speed * Time.deltaTime);
-			}
-			if (mousePos.x > 1-Border)
-			{
-					moveCamera(this.transform.right, Speed * Time.deltaTime);
-			}
-			else if (mousePos.x < Border)
-			{
-					moveCamera(this.transform.right, -Speed * Time.deltaTime);
-
-			}
-		}
 		
 		if (Input.GetKey(this.Right) ^ Input.GetKey(this.Left))
 		{
@@ -67,6 +42,13 @@ public class CameraMover : MonoBehaviour {
 			else
 				moveCamera(this.transform.forward, tmp * -Speed * Time.deltaTime);
 		}
+		}
+		else if (this.transform.position.x < 6)
+		{
+			this.transform.position = new Vector3(6f, this.transform.position.y, this.transform.position.z);
+		}
+		else
+			this.transform.position = new Vector3(94f, this.transform.position.y, this.transform.position.z);
 	}
 	
 	void moveCamera (Vector3 direction, float val)

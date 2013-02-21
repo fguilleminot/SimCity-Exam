@@ -254,14 +254,14 @@ public class ObjectPlacer : MonoBehaviour
 		//Debug.Log("toto " + nextPrefabInstantiate);
 		
 		Vector3 posToCheck1 = new Vector3 (nextPrefabInstantiate.x, nextPrefabInstantiate.y, nextPrefabInstantiate.z);
-		Vector3 posToCheck2 = new Vector3 (nextPrefabInstantiate.x + 1.05f, nextPrefabInstantiate.y, nextPrefabInstantiate.z);
-		Vector3 posToCheck3 = new Vector3 (nextPrefabInstantiate.x + 1.05f, nextPrefabInstantiate.y, nextPrefabInstantiate.z + 1.05f);
-		Vector3 posToCheck4 = new Vector3 (nextPrefabInstantiate.x, nextPrefabInstantiate.y, nextPrefabInstantiate.z + 1.05f);
+		Vector3 posToCheck2 = new Vector3 (nextPrefabInstantiate.x + 1.1f, nextPrefabInstantiate.y, nextPrefabInstantiate.z);
+		Vector3 posToCheck3 = new Vector3 (nextPrefabInstantiate.x + 1.1f, nextPrefabInstantiate.y, nextPrefabInstantiate.z + 1.1f);
+		Vector3 posToCheck4 = new Vector3 (nextPrefabInstantiate.x, nextPrefabInstantiate.y, nextPrefabInstantiate.z + 1.1f);
 		
-		//Debug.DrawRay (Camera.main.transform.position, (posToCheck1 - Camera.main.transform.position), Color.cyan, 100f);
-		//Debug.DrawRay (Camera.main.transform.position, (posToCheck2 - Camera.main.transform.position), Color.cyan, 100f);
-		//Debug.DrawRay (Camera.main.transform.position, (posToCheck3 - Camera.main.transform.position), Color.cyan, 100f);
-		//Debug.DrawRay (Camera.main.transform.position, (posToCheck4 - Camera.main.transform.position), Color.cyan, 100f);
+		Debug.DrawRay (Camera.main.transform.position, (posToCheck1 - Camera.main.transform.position), Color.cyan, 100f);
+		Debug.DrawRay (Camera.main.transform.position, (posToCheck2 - Camera.main.transform.position), Color.cyan, 100f);
+		Debug.DrawRay (Camera.main.transform.position, (posToCheck3 - Camera.main.transform.position), Color.cyan, 100f);
+		Debug.DrawRay (Camera.main.transform.position, (posToCheck4 - Camera.main.transform.position), Color.cyan, 100f);
 		RaycastHit outinfo;
 		if (Physics.Raycast (Camera.main.transform.position, (posToCheck1 - Camera.main.transform.position), out outinfo, Mathf.Infinity)) {
 			if (outinfo.transform.tag != TagMap) {

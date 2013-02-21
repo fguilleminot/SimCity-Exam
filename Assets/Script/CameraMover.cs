@@ -71,7 +71,7 @@ public class CameraMover : MonoBehaviour {
 	
 	void moveCamera (Vector3 direction, float val)
 	{
-		Debug.Log(direction);
+		//Debug.Log(direction);
 		if (direction.y == 1f || direction.y == -1f)
 			direction = this.transform.up;
 		direction.y = 0;

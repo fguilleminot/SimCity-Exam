@@ -54,9 +54,9 @@ public class MapGenerator : MonoBehaviour
 		float pixelHeight;
 		
 		surface = width * height;
-		vertices = new Vector3[height * width];
-		uv = new Vector2[height * width];
-		tangents = new Vector4[height * width];
+		vertices = new Vector3[surface];
+		uv = new Vector2[surface];
+		tangents = new Vector4[surface];
 
 		Vector2 uvScale = new Vector2(1.0f / (width - 1), 1.0f / (height - 1));
 		Vector3 sizeScale = new Vector3(size.x / (width - 1), size.y, size.z / (height - 1));

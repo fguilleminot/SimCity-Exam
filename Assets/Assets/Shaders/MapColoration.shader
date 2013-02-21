@@ -34,6 +34,6 @@ Shader "Custom/MapColoration" {
 			o.Albedo = lerp(_BaseColor, _HeightColor, IN.weight);
 		}
 		ENDCG
-	} 
+	}
 	FallBack "Diffuse"
 }

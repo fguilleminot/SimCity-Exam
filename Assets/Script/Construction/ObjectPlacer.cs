@@ -1,12 +1,26 @@
 using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(GameManager))]
 public class ObjectPlacer : MonoBehaviour
 {
 	public GameObject[] tmp;
 	public GameObject prefabToBuild;
+	public TYPEOFBUILDING currentType;
 	public GameObject SonOf;
-	public System.Collections.Generic.List<GameObject> ObjectCreated;
+	
+	public class ObjectCreated
+	{
+		public System.Collections.Generic.List<GameObject> Obj;
+		public TYPEOFBUILDING type;
+		
+		public ObjectCreated (TYPEOFBUILDING t = TYPEOFBUILDING.NONE)
+		{
+			Obj = new System.Collections.Generic.List<GameObject> ();
+			type = t;
+		}
+	}
+	
 	public string TagMap;
 	private GameObject prefabInstantiate;
 	private bool mouseDown;
@@ -19,6 +33,7 @@ public class ObjectPlacer : MonoBehaviour
 	private float height = 0f;
 	private Vector3 camPos;
 	private bool destroyMode;
+	public ObjectCreated[] Created;
 	
 	public enum TYPEOFBUILDING
 	{
@@ -27,7 +42,8 @@ public class ObjectPlacer : MonoBehaviour
 		MANUFACTORY,
 		WATER,
 		POWERSTATION,
-		DESTROY
+		DESTROY,
+		NONE
 	}
 	
 	// Use this for initialization
@@ -35,8 +51,11 @@ public class ObjectPlacer : MonoBehaviour
 	{
 		prefabToBuild = null;
 		mouseDown = false;
+		currentType = TYPEOFBUILDING.NONE;
 		camPos = Camera.main.transform.position;
-		ObjectCreated = new System.Collections.Generic.List<GameObject> ();
+		Created = new ObjectCreated[5];
+		for (int i=0; i<5; i++)
+			Created [i] = new ObjectCreated ((TYPEOFBUILDING)i);
 	}
 	
 	// Update is called once per frame
@@ -48,12 +67,12 @@ public class ObjectPlacer : MonoBehaviour
 		if (Input.GetMouseButtonDown (0)) {
 			mousePos = Camera.main.ScreenToViewportPoint (Input.mousePosition) * camPos.y;
 			mouseDown = true;
-			Debug.Log ("capture position pression " + mousePos);
+			//Debug.Log ("capture position pression " + mousePos);
 		}
 		if (Input.GetMouseButtonUp (0) && mouseDown) {
 			//Possibility of areaCreationPrefab
 			otherPos = Camera.main.ScreenToViewportPoint (Input.mousePosition) * camPos.y;
-			Debug.Log ("capture position apres pression " + otherPos);
+			//Debug.Log ("capture position apres pression " + otherPos);
 			if (destroyMode)
 				destroyPrefab ();
 			else if (prefabToBuild != null)
@@ -61,6 +80,7 @@ public class ObjectPlacer : MonoBehaviour
 				
 			mouseDown = false;
 		}
+	
 	}
 	
 	public void InputKeyboardManager ()
@@ -68,22 +88,27 @@ public class ObjectPlacer : MonoBehaviour
 		if (Input.GetKeyDown (KeyCode.D)) {
 			destroyMode = true;
 			prefabToBuild = null;
+			currentType = TYPEOFBUILDING.DESTROY;
 		} else if (Input.GetKeyDown (KeyCode.H)) {
-			prefabToBuild = tmp [(int)TYPEOFBUILDING.HOUSE];
 			destroyMode = false;
+			currentType = TYPEOFBUILDING.HOUSE;
 		} else if (Input.GetKeyDown (KeyCode.S)) {
-			prefabToBuild = tmp [(int)TYPEOFBUILDING.STORE];
 			destroyMode = false;
+			currentType = TYPEOFBUILDING.STORE;
 		} else if (Input.GetKeyDown (KeyCode.M)) {
-			prefabToBuild = tmp [(int)TYPEOFBUILDING.MANUFACTORY];
 			destroyMode = false;
+			currentType = TYPEOFBUILDING.MANUFACTORY;
 		} else if (Input.GetKeyDown (KeyCode.W)) {
-			prefabToBuild = tmp [(int)TYPEOFBUILDING.WATER];
 			destroyMode = false;
+			currentType = TYPEOFBUILDING.WATER;
 		} else if (Input.GetKeyDown (KeyCode.P)) {
-			prefabToBuild = tmp [(int)TYPEOFBUILDING.POWERSTATION];
 			destroyMode = false;
+			currentType = TYPEOFBUILDING.POWERSTATION;
 		}
+		
+		if ((currentType != TYPEOFBUILDING.NONE) && (currentType != TYPEOFBUILDING.DESTROY))
+			prefabToBuild = tmp [(int)currentType];
+		
 	}
 	
 	public void drawPrefab ()
@@ -107,12 +132,11 @@ public class ObjectPlacer : MonoBehaviour
 					for (float indexH = 0f; indexH < height; indexH+=1.05f) {
 						prefabToBuild.SetActive (true);
 						prefabToBuild.transform.position = new Vector3 (prefabPos.x + indexW - 0.5f, 0.1f, prefabPos.z + indexH - 0.5f);
-						if (checkPlaceToCreate (prefabToBuild.transform.position)) {
+						if (checkPlaceToCreate (prefabToBuild.transform.position) && canConstruct (currentType)) {
 							prefabInstantiate = Instantiate (prefabToBuild) as GameObject;
 							if (prefabInstantiate) {
 								prefabInstantiate.transform.parent = SonOf.transform;
-								//ObjectCreated.Add (prefabInstantiate);
-								
+								Created [(int)currentType].Obj.Add (prefabInstantiate);
 							} else
 								Debug.Log ("fuck");
 						}
@@ -134,23 +158,39 @@ public class ObjectPlacer : MonoBehaviour
 		Ray ray = Camera.main.ViewportPointToRay (mousePos / camPos.y);
 		RaycastHit outinfo;
 		if (Physics.Raycast (ray, out outinfo, Mathf.Infinity)) {
-			if (outinfo.transform.tag != TagMap)
+			if (outinfo.transform.tag != TagMap) {
+				removeInList (outinfo.transform.gameObject);
 				Destroy (outinfo.transform.gameObject);
-			else {
+			} else {
 				Vector3 destructionPos = prefabPosition (outinfo.point);
 				//Debug.DrawRay (Camera.main.transform.position, destructionPos - Camera.main.transform.position, Color.red, 100f);
 				
 				//Debug.Log ("l " + left + " t " + top + " w " + width + " h " + height);
-				for (float indexW = 0f; indexW <= width; indexW+=0.95f) {
-					for (float indexH = 0f; indexH <= height; indexH+=0.95f) {
+				for (float indexW = 0f; indexW <= width; indexW+=0.25f) {
+					for (float indexH = 0f; indexH <= height; indexH+=0.25f) {
 						toDestroy = checkDestroy (new Vector3 (destructionPos.x + indexW - 0.5f, 0.1f, destructionPos.z + indexH - 0.5f));
 						if (toDestroy != null) {
+							removeInList (toDestroy);
 							Destroy (toDestroy);
 						}
 					}
 				}
 			}
 		}
+	}
+	
+	public void removeInList (GameObject toDestroy)
+	{
+		if (toDestroy.CompareTag ("House"))
+			Created [(int)TYPEOFBUILDING.HOUSE].Obj.Remove (toDestroy);
+		else if (toDestroy.CompareTag ("Store"))
+			Created [(int)TYPEOFBUILDING.STORE].Obj.Remove (toDestroy);
+		else if (toDestroy.CompareTag ("Facto"))
+			Created [(int)TYPEOFBUILDING.MANUFACTORY].Obj.Remove (toDestroy);
+		else if (toDestroy.CompareTag ("Water"))
+			Created [(int)TYPEOFBUILDING.WATER].Obj.Remove (toDestroy);
+		else
+			Created [(int)TYPEOFBUILDING.POWERSTATION].Obj.Remove (toDestroy);
 	}
 	
 	public Vector3 prefabPosition (Vector3 rayCastHitPos)
@@ -244,6 +284,56 @@ public class ObjectPlacer : MonoBehaviour
 			}
 		}
 		
+		return result;
+	}
+	
+	public bool canConstruct (ObjectPlacer.TYPEOFBUILDING typeOfBuild)
+	{
+		bool result = false;
+		switch (typeOfBuild) {
+		case ObjectPlacer.TYPEOFBUILDING.HOUSE :
+			{
+				if (this.GetComponent<GameManager> ().currentMoney - (int)GameManager.MONEYCOST.HOUSE > 0) {
+					this.GetComponent<GameManager> ().currentMoney -= (int)GameManager.MONEYCOST.HOUSE;
+					result = true;
+				}
+				break;
+			}
+		case ObjectPlacer.TYPEOFBUILDING.STORE :
+			{
+				if (this.GetComponent<GameManager> ().currentMoney - (int)GameManager.MONEYCOST.STORE > 0) {
+					this.GetComponent<GameManager> ().currentMoney -= (int)GameManager.MONEYCOST.STORE;
+					result = true;
+				}
+				break;
+			}
+		case ObjectPlacer.TYPEOFBUILDING.MANUFACTORY :
+			{
+				if (this.GetComponent<GameManager> ().currentMoney - (int)GameManager.MONEYCOST.MANUFACTORY > 0) {
+					this.GetComponent<GameManager> ().currentMoney -= (int)GameManager.MONEYCOST.MANUFACTORY;
+					result = true;
+				}
+				break;
+			}
+		case ObjectPlacer.TYPEOFBUILDING.WATER :
+			{
+				if (this.GetComponent<GameManager> ().currentMoney - (int)GameManager.MONEYCOST.WATER > 0) {
+					this.GetComponent<GameManager> ().currentMoney -= (int)GameManager.MONEYCOST.WATER;
+					result = true;
+				}
+				break;
+			}
+		case ObjectPlacer.TYPEOFBUILDING.POWERSTATION :
+			{
+				if (this.GetComponent<GameManager> ().currentMoney - (int)GameManager.MONEYCOST.POWERSTATION > 0) {
+					this.GetComponent<GameManager> ().currentMoney -= (int)GameManager.MONEYCOST.POWERSTATION;
+					result = true;
+				}
+				break;
+			}
+		default :
+			break;
+		}
 		return result;
 	}
 	

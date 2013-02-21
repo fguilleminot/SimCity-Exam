@@ -74,6 +74,61 @@ NavMeshSettings:
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
   m_NavMesh: {fileID: 0}
+--- !u!1 &1039492643
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1039492648}
+  - 20: {fileID: 1039492647}
+  m_Layer: 0
+  m_Name: Minimap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!20 &1039492647
+Camera:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1039492643}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: .192156866, g: .301960796, b: .474509805, a: .0196078438}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: .699999988
+    y: .699999988
+    width: .560000002
+    height: 1
+  near clip plane: .300000012
+  far clip plane: 110
+  field of view: 60
+  orthographic: 1
+  orthographic size: 20
+  m_Depth: 1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_HDR: 0
+--- !u!4 &1039492648
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1039492643}
+  m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
+  m_LocalPosition: {x: 50, y: 100, z: 50}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
 --- !u!1 &1340956710
 GameObject:
   m_ObjectHideFlags: 0
@@ -114,7 +169,7 @@ MonoBehaviour:
   m_Name: 
   MapTexture: {fileID: 0}
   material: {fileID: 0}
-  size: {x: 50, y: 0, z: 50}
+  size: {x: 100, y: 0, z: 100}
   BaseColor: {r: .0336934701, g: .410447776, b: .204224333, a: 1}
   HeightColor: {r: .335820913, g: .170416579, b: .0325796343, a: 1}
   MapColoration: {fileID: 4800000, guid: 5f6d4286e3221244191c886c68a025de, type: 3}
@@ -128,8 +183,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 50, y: 0, z: 50}
-  m_Center: {x: 25, y: 0, z: 25}
+  m_Size: {x: 100, y: 0, z: 100}
+  m_Center: {x: 50, y: 0, z: 50}
 --- !u!1 &1749079004
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,6 +261,8 @@ GameObject:
   - 81: {fileID: 1823430113}
   - 114: {fileID: 1823430118}
   - 114: {fileID: 1823430119}
+  - 114: {fileID: 1823430120}
+  - 114: {fileID: 1823430121}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -255,7 +312,7 @@ Camera:
   field of view: 60
   orthographic: 0
   orthographic size: 100
-  m_Depth: -1
+  m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -269,7 +326,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1823430112}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
-  m_LocalPosition: {x: 10, y: 10, z: 10}
+  m_LocalPosition: {x: 50, y: 10, z: 50}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -290,8 +347,8 @@ MonoBehaviour:
   - {fileID: 100000, guid: e710eb1cfcebc164ca798f4044d63fd3, type: 2}
   - {fileID: 100000, guid: a100c10f3e9c5ac409c0a39446eb4fff, type: 2}
   prefabToBuild: {fileID: 0}
+  currentType: 0
   SonOf: {fileID: 1340956710}
-  ObjectCreated: []
   TagMap: Map
 --- !u!114 &1823430119
 MonoBehaviour:
@@ -310,3 +367,39 @@ MonoBehaviour:
   Backward: 274
   Left: 276
   Right: 275
+--- !u!114 &1823430120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1823430112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71a9eb1df91dc7f43abc8aba3917edf3, type: 3}
+  m_Name: 
+  inGame: 0
+  startMoney: 1000
+  currentMoney: 0
+  impositionTaxe: 2
+  storeTaxe: 30
+  factoTaxe: 90
+  pay: 1
+  speedTime: 1
+  refreshTime: .5
+  tmp: {fileID: 2800000, guid: 6cb9f7029e5e6de46babd832fab766b0, type: 3}
+--- !u!114 &1823430121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1823430112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3085d5ddae21fa347a2c6b7e5414cab6, type: 3}
+  m_Name: 
+  growthPeople: 10
+  popMaxInHouse: 30
+  timeToGrowth: 1
+  people: 0
+  populationMax: 0
+  workerNeeded: 0
